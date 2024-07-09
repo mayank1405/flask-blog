@@ -1,0 +1,28 @@
+from <app_name> import app, db
+app.app_context().push()
+from <app_name>.models import User
+user = User.query.first()
+
+
+
+2022 Application context error Windows Solution
+
+I am working on this tutorial 4-1/2 years after its release.  I am in a Windows environment with the latest python and flask versions.  Because of this I get errors at 18:12 that Corey does not. None of the other solutions in the comments worked for me.  What I show below did work.
+
+First I had to hard-code the database_uri line in __init__.py:
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Flask_Blog_Corey\\flaskblog\\site.db'
+Change it to match your project folder name.
+
+Then I used these commands in the python shell:
+Make sure you delete any pre-existing site.db file in your project folder.
+
+python
+>>> from flaskblog import *
+>>> app.app_context().push()
+>>> from flaskblog import db
+>>> from flaskblog.models import User, Post
+>>> db.create_all()
+>>> db.session.commit()        
+ >>> User.query.all()      
+
+Hope this helps someone.
